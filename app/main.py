@@ -32,4 +32,11 @@ def update_user(user: User, user_id: int):
     for u in users:
         users[users.index(u)]=user
     return users
+
+@app.delete("/api/users/{user_id}")
+def delete_user(user: User, user_id: int):
+    for u in users:
+        if (u.user_id == user.user_id):
+            users.remove(users.index(u))
+    return users
     
