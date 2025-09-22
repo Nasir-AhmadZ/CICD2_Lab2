@@ -7,3 +7,4 @@ class User(BaseModel):
     email:EmailStr
     age:conint(gt=18) 
 
+
