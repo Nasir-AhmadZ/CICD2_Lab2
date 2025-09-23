@@ -37,6 +37,6 @@ def update_user(user: User, user_id: int):
 def delete_user(user: User, user_id: int):
     for u in users:
         if (u.user_id == user.user_id):
-            users.remove(users.index(u))
+            users.pop(users.index(u))
     return users
     
