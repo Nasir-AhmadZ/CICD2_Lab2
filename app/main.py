@@ -33,10 +33,18 @@ def update_user(user: User, user_id: int):
         users[users.index(u)]=user
     return users
 
-@app.delete("/api/users/{user_id}")
-def delete_user(user: User, user_id: int):
+@app.delete("/api/users/{user_id}",status_code=status.HTTP_204_NO_CONTENT)
+def delete_user(user_id: int):
     for u in users:
-        if (u.user_id == user.user_id):
-            users.remove(users.index(u))
-    return users
+        if (u.user_id == user_id):
+            users.remove(u)
+            return users
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")   
+    
+@app.get("/health")
+def health():
+    return print("{ status: ok }")
+    
+         
+    
     
