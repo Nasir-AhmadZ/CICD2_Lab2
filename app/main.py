@@ -29,21 +29,23 @@ def add_user(user: User):
 
 @app.put("/api/users/{user_id}")
 def update_user(user: User, user_id: int):
-    for u in users:
-        users[users.index(u)]=user
-    return users
+    for i, u in enumerate(users):
+        if u.user_id == user_id:
+            users[i] = user
+            return user
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found") 
 
 @app.delete("/api/users/{user_id}",status_code=status.HTTP_204_NO_CONTENT)
 def delete_user(user_id: int):
-    for u in users:
+    for i, u in enumerate(users):
         if (u.user_id == user_id):
-            users.remove(u)
-            return users
+            users.pop(i)
+            return 
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")   
     
 @app.get("/health")
 def health():
-    return print("{ status: ok }")
+    return {"status": "ok"}
     
          
     
